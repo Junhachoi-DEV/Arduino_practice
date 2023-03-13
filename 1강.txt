@@ -1,0 +1,160 @@
+// C++ code
+//
+
+//색조절 램프
+const int B_LED = 9;
+const int G_LED = 10;
+const int R_LED = 11;
+const int BUTTON = 2;
+
+boolean last_button = LOW;
+boolean cur_button = LOW;
+
+int led_mode = 0;
+
+void setup()
+{
+  pinMode (B_LED, OUTPUT);
+  pinMode (G_LED, OUTPUT);
+  pinMode (R_LED, OUTPUT);
+  pinMode (BUTTON, INPUT);
+}
+
+boolean debounce(boolean last)
+{
+  boolean current = digitalRead(BUTTON);
+  if(last != current)
+  {
+    delay(5);
+    current = digitalRead(BUTTON);
+  }
+  return current;
+}
+void setMode(int mode)
+{
+  if(mode ==1)
+  {
+    digitalWrite(R_LED, LOW);
+    digitalWrite(G_LED, HIGH);
+    digitalWrite(B_LED, HIGH);
+
+  }
+  else if(mode ==2)
+  {
+    digitalWrite(R_LED, HIGH);
+    digitalWrite(G_LED, LOW);
+    digitalWrite(B_LED, HIGH);
+  }
+  else if(mode ==3)
+  {
+    digitalWrite(R_LED, HIGH);
+    digitalWrite(G_LED, HIGH);
+    digitalWrite(B_LED, LOW);
+  }
+  else if(mode ==4)
+  {
+    analogWrite(R_LED,127);
+    analogWrite(G_LED,255);
+    analogWrite(B_LED,127);
+
+  }
+  else if(mode ==5)
+  {
+    analogWrite(R_LED,255);
+    analogWrite(G_LED,127);
+    analogWrite(B_LED,127);
+  }
+  else if(mode ==6)
+  {
+    analogWrite(R_LED,127);
+    analogWrite(G_LED,127);
+    analogWrite(B_LED,255);
+  }
+  else if(mode ==7)
+  {
+    analogWrite(R_LED,170);
+    analogWrite(G_LED,170);
+    analogWrite(B_LED,170);
+  }
+  else
+  {
+    digitalWrite(R_LED, HIGH);
+    digitalWrite(G_LED, HIGH);
+    digitalWrite(B_LED, HIGH);
+  }
+}
+void loop()
+{
+  cur_button = debounce(last_button);
+  if(last_button==LOW && cur_button == HIGH)
+  {
+    led_mode++;
+  }
+  last_button = cur_button;
+  if(led_mode==8)
+  {
+    led_mode =0;
+  }
+  setMode(led_mode);
+} 
+
+/*
+const int LED1 = 9; //led 핀을 9번 핀으로 정의
+//const int LED2 = 10; //~이 표시에 있는 핀번호가 아날로그 핀이다.
+const int BUTTON = 2;
+
+void setup()
+{
+  pinMode(LED1, OUTPUT); //LED를 출력으로 설정
+  //pinMode(LED2, OUTPUT);
+  pinMode(BUTTON, INPUT);
+}
+//스위치 전구 켜기
+void loop()
+{
+  if(digitalRead(BUTTON) == LOW)
+  {
+    digitalWrite(LED1, LOW);
+  }
+  else
+  {
+    digitalWrite(LED1, HIGH);
+  }
+}
+
+
+//두개의 밝기 조절
+/*
+void loop()
+{
+  //밝아짐
+  for(int i =0; i<256; i++)
+  {
+    analogWrite(LED1, i);
+    //analogWrite(LED2, i);
+    delay(10);
+  }
+  
+  //어두워짐
+  for(int i =255; i >=0 ; i--)
+  {
+    //analogWrite(LED1, i);
+    analogWrite(LED2, i);
+    delay(10);
+  }
+}
+
+//전구 깜박이기
+/*
+void loop()
+{
+  //10ms = 1000
+  for(int i = 100; i <=1000; i=i+100)
+  {
+    digitalWrite(LED, HIGH);
+    delay(i);
+    digitalWrite(LED, LOW);
+    delay(i);
+  }
+}
+*/
