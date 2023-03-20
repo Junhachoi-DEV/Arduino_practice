@@ -1,0 +1,51 @@
+// C++ code
+//
+const int g_led =9;
+const int b_led =10;
+const int r_led =11;
+
+const int light=0;
+const int temp = 0;
+
+
+const int min_light =100;
+const int max_light =900;
+
+
+int val =0;
+
+void setup()
+{
+  pinMode(g_led,OUTPUT);
+  pinMode(b_led,OUTPUT);
+  pinMode(r_led,OUTPUT);
+}
+
+void loop()
+{
+  val = analogRead(temp);
+  //val = map(val,0,max_light, 0, 255);
+  //val = constrain(val,0,255);
+  //analogWrite(
+  
+  if(val < min_light)
+  {
+    digitalWrite(r_led,HIGH);
+    digitalWrite(g_led,LOW);
+    digitalWrite(b_led,LOW);
+
+  }
+  else if(val > max_light)
+  {
+    digitalWrite(r_led,LOW);
+    digitalWrite(g_led,HIGH);
+    digitalWrite(b_led,LOW);
+  }
+  else
+  {
+    digitalWrite(r_led,LOW);
+    digitalWrite(g_led,LOW);
+    digitalWrite(b_led,HIGH);
+  }
+  
+}

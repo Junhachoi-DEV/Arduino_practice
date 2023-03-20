@@ -1,0 +1,19 @@
+const int led1 =9;
+const int light = 0;
+const int min_light = 200;
+const int max_light = 900;
+
+int val =0;
+
+void setup()
+{
+  pinMode(led1,OUTPUT);
+}
+
+void loop()
+{
+  val = analogRead(light);
+  val = map(val, min_light, max_light, 0, 255);
+  val = constrain(val,0,255);
+  analogWrite(led1,val);
+}
