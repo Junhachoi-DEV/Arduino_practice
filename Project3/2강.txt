@@ -1,0 +1,42 @@
+// C++ code
+//
+const int b_led =9;
+const int g_led =10;
+const int r_led =11;
+const int temp =0;
+
+const int lower_bound = 139; //온도 하한값
+const int upper_bound = 147; //온도 상한값
+
+int val = 0;
+void setup()
+{
+  	pinMode(b_led, OUTPUT);
+    pinMode(g_led, OUTPUT);
+    pinMode(r_led, OUTPUT);
+}
+
+//보드판에 따라 LOW, HIGH를 다를게 해줘야한다.
+
+void loop()
+{
+  val = analogRead(temp);
+  if(val < lower_bound)
+  {
+    	digitalWrite(r_led, LOW);
+     	digitalWrite(g_led, LOW);
+        digitalWrite(b_led, HIGH);
+  }
+  else if(val > upper_bound)
+  {
+    	digitalWrite(r_led, HIGH);
+     	digitalWrite(g_led, LOW);
+        digitalWrite(b_led, LOW);
+  }
+  else
+  {
+    	digitalWrite(r_led, LOW);
+     	digitalWrite(g_led, HIGH);
+        digitalWrite(b_led, LOW);
+  }
+}
