@@ -1,0 +1,47 @@
+// C++ code
+//
+#define NOTE_C 262  //도
+#define NOTE_D 294	//레
+#define NOTE_E 330	//미
+#define NOTE_G 392 	//솔
+#define NOTE_A 440	//라
+
+const int SPEAKER =9;
+const int BUTTON_C =7;
+const int BUTTON_D =6;
+const int BUTTON_E =5;
+const int BUTTON_G =4;
+const int BUTTON_A =3;
+
+
+
+void setup()
+{
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+  while(digitalRead(BUTTON_C))
+  {
+    tone(SPEAKER, NOTE_C);
+  }
+  while(digitalRead(BUTTON_D))
+  {
+    tone(SPEAKER, NOTE_D);
+  }
+  while(digitalRead(BUTTON_E))
+  {
+    tone(SPEAKER, NOTE_E);
+  }
+  while(digitalRead(BUTTON_G))
+  {
+    tone(SPEAKER, NOTE_G);
+  }
+  while(digitalRead(BUTTON_A))
+  {
+    tone(SPEAKER, NOTE_A);
+  }
+  //누르지 않은 경우 멈춤
+  noTone(SPEAKER);
+}
